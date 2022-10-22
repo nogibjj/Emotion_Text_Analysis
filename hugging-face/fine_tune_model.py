@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-Fine Tuning emotion text classifier with Friends data 
+Fine Tuning emotion text classifier with Friends show data 
 
 Based on official tutorial
 """
@@ -15,27 +15,24 @@ import pandas as pd
 import json
 
 # Load the dataset
-# convert friends json to dataframe
-#df = pd.read_json("friends.json")
-
 with open("friends.json") as f:
     data = json.load(f)
 
 # convert to dataframe
 df = pd.DataFrame(data)
-#print(df.head())
+
 df = df.stack().reset_index()
 df = df.drop(['level_0', 'level_1'], axis=1)
 print(df) 
 
 # get utterance and label
+utterances = [d.get('utterance') for d in df[0]]
+# label 
+labels = [d.get('emotion') for d in df[0]]
 
+# create new training_data
 
-# transpose dataframe
-#transposed = df[1:].T
-#print(transposed)
+data_tuples = list(zip(utterances,labels))
 
-#print(df.iloc[:, :1])
-# add first column with transposed
-#final_df = df.iloc[:, :1].append(transposed, ignore_index=True)
-#print(final_df.head())
+train_data = pd.DataFrame(data_tuples, columns=['sentence','label'])
+print(train_data.head())
