@@ -38,4 +38,5 @@ torchvision==0.13.1
 #openai whisper
 git+https://github.com/openai/whisper.git 
 
-
+#json 
+json5==0.9.6

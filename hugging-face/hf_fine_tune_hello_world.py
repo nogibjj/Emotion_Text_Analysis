@@ -11,8 +11,14 @@ from datasets import load_dataset, load_metric
 from transformers import AutoModelForSequenceClassification
 from transformers import TrainingArguments, Trainer
 import numpy as np
+import pandas as pd
 
 # Load the dataset
+# convert friends json to dataframe
+
+df = pd.read_json('data/friends.json')
+print(df.head())
+
 dataset = load_dataset("yelp_review_full")
 dataset["train"][100]
 tokenizer = AutoTokenizer.from_pretrained("bert-base-cased")
